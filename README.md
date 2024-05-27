@@ -50,7 +50,7 @@ python3 manage.py migrate
 ```
 python3 manage.py runserver
 
-# Application should now be running on http://127.0.0.1:8000/
+# Application should now be running on http://127.0.0.1:8000/polls
 
 # Admin panel can be accessed from http://127.0.0.1:8000/admin/
 
