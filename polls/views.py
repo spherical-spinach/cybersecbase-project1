@@ -1,9 +1,10 @@
 from django.db.models import F
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 from .models import Choice, Question
 
@@ -54,3 +55,42 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+    
+@login_required
+def create_question(request):
+    if request.method == 'POST':
+        question_text = request.POST['question_text']
+        choice1 = request.POST['choice1']
+        choice2 = request.POST['choice2']
+        choice3 = request.POST['choice3']
+        choice4 = request.POST['choice4']
+
+        question = Question.objects.create(
+            question_text=question_text,
+            pub_date=timezone.now(),
+            author=request.user
+        )
+
+        Choice.objects.create(
+            question=question,
+            choice_text=choice1,
+            votes=0
+        )
+        Choice.objects.create(
+            question=question,
+            choice_text=choice2,
+            votes=0
+        )
+        Choice.objects.create(
+            question=question,
+            choice_text=choice3,
+            votes=0
+        )
+        Choice.objects.create(
+            question=question,
+            choice_text=choice4,
+            votes=0
+        )
+
+        
+    return redirect('polls:index')

@@ -16,11 +16,33 @@
         <a href="{% url 'polls:detail' question.id %}"
           >{{ question.question_text }}</a
         >
+        <p>{{ question.author }}</p>
       </li>
       {% endfor %}
     </ul>
     {% else %}
-    <p>No polls are available.</p>
+    <p>No questions to vote for are available.</p>
     {% endif %}
+    <h1>Create a new question</h1>
+    <form action="{% url 'polls:create_question' %}" method="post">
+      {% csrf_token %}
+      <label for="question_text">Question:</label>
+      <input type="text" id="question_text" name="question_text" required>
+      <br>
+      <label for="choice1">Choice 1:</label>
+      <input type="text" id="choice1" name="choice1" required>
+      <br>
+      <label for="choice2">Choice 2:</label>
+      <input type="text" id="choice2" name="choice2" required>
+      <br>
+      <label for="choice3">Choice 3:</label>
+      <input type="text" id="choice3" name="choice3" required>
+      <br>
+      <label for="choice3">Choice 4:</label>
+      <input type="text" id="choice4" name="choice4" required>
+      <br>
+      <input type="submit" value="Create Question">
+  </form>
+    </form>
   </body>
 </html>
