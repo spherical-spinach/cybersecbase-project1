@@ -9,6 +9,8 @@
   </head>
   <body>
     <h3>logged in as {{ user }}</h3>
+    <a href="{% url 'polls:logout'  %}"
+          style="color: green;">logout</a>
     <h1>Questions to vote for</h1>
     {% if latest_question_list %}
     <ul>
