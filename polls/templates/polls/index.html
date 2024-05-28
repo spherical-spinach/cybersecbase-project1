@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'polls/style.css' %}" />
   </head>
   <body>
+    <h3>logged in as {{ user }}</h3>
     <h1>Questions to vote for</h1>
     {% if latest_question_list %}
     <ul>
@@ -16,7 +17,7 @@
         <a href="{% url 'polls:detail' question.id %}"
           >{{ question.question_text }}</a
         >
-        <p>{{ question.author }}</p>
+        <p>created by: <b>{{ question.author }}</b></p>
       </li>
       {% endfor %}
     </ul>

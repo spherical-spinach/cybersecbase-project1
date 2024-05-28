@@ -2,13 +2,13 @@ from django.db.models import F
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
-from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
 
 from .models import Choice, Question
 
-
+@login_required
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}
@@ -24,6 +24,22 @@ def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/results.html', {'question': question})
 
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('polls:index')
+        else:
+            return render(request, 'polls/login.html', {'error': 'Invalid username or password'})
+    else:
+        return render(request, 'polls/login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('polls:login')
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
