@@ -28,7 +28,7 @@
     {% endif %}
     <h1>Create a new question</h1>
     <form action="{% url 'polls:create_question' %}" method="post">
-      <!-- {% csrf_token %} -->
+      {% csrf_token %}
       <label for="question_text">Question:</label>
       <input type="text" id="question_text" name="question_text" required>
       <br>
