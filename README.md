@@ -31,7 +31,7 @@ source env/bin/activate
 deactivate
 ```
 
-3. Install dependencies:
+3. Install dependencies by running this in the project folder:
 
 ```
 pip install -r requirements.txt
