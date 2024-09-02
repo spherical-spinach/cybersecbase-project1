@@ -22,10 +22,10 @@ cd cybersecbase-project1
 python3 -m venv example-env
 
 # Activate the virtual environment on Windows:
-env\Scripts\activate
+example-env\Scripts\activate
 
 # Activate the virtual environment on macOS/Linux:
-source env/bin/activate
+source example-env/bin/activate
 
 # Once you are done, you can exit the virtual environment by running
 deactivate

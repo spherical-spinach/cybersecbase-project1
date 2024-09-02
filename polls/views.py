@@ -3,13 +3,14 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils import timezone
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 import sqlite3
 
 from .models import Choice, Question
 
 @login_required
+@csrf_exempt
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}
