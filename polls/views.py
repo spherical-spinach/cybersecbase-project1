@@ -10,7 +10,6 @@ import sqlite3
 from .models import Choice, Question
 
 @login_required
-@csrf_exempt
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}
@@ -43,6 +42,7 @@ def logout_view(request):
     logout(request)
     return redirect('polls:login')
 
+@csrf_exempt
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
